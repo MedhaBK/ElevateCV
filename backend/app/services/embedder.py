@@ -1,43 +1,26 @@
-from sentence_transformers import SentenceTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
-from app.config import settings
-
-# Load once at module level — this takes ~2s on first run
-# Subsequent calls are instant
-_model = SentenceTransformer(settings.embedding_model)
-
-
-def get_embedding(text: str) -> np.ndarray:
-    """Returns a normalized embedding vector for a given text."""
-    embedding = _model.encode(text, convert_to_numpy=True)
-    # Normalize to unit vector — required for cosine similarity via dot product
-    return embedding / np.linalg.norm(embedding)
-
-
-def cosine_similarity(vec_a: np.ndarray, vec_b: np.ndarray) -> float:
-    """
-    Dot product of two unit vectors = cosine similarity.
-    Returns float between -1 and 1. Resumes vs JDs are always positive.
-    """
-    return float(np.dot(vec_a, vec_b))
 
 
 def compute_match_score(resume_text: str, jd_text: str) -> int:
     """
-    Returns an integer 0-100 representing semantic similarity
-    between resume and job description.
+    Computes TF-IDF cosine similarity between resume and JD.
+    Lightweight alternative to sentence-transformers for free-tier deployment.
+    No model loading — pure sklearn, ~5MB RAM.
     """
-    resume_vec = get_embedding(resume_text)
-    jd_vec = get_embedding(jd_text)
-    similarity = cosine_similarity(resume_vec, jd_vec)
+    vectorizer = TfidfVectorizer(
+        stop_words="english",
+        ngram_range=(1, 2),   # unigrams + bigrams for better matching
+        max_features=5000,
+    )
 
-    # Cosine similarity for related docs typically ranges 0.3-0.9
-    # We rescale to 0-100 for UX clarity
-    score = round(similarity * 100)
-    return max(0, min(100, score))
+    corpus = [resume_text, jd_text]
+    tfidf_matrix = vectorizer.fit_transform(corpus)
 
+    score = cosine_similarity(tfidf_matrix[0], tfidf_matrix[1])[0][0]
 
-
-
-
-'''I used sentence-transformers to generate dense vector embeddings locally — no API cost. Cosine similarity between normalized vectors is just a dot product, so it's a single numpy operation. The raw similarity score is between 0 and 1, which I scale to 0–100 for frontend display.'''
+    # TF-IDF cosine similarity typically ranges 0.05–0.6 for resume/JD pairs
+    # Rescale to 0–100 for UX clarity
+    normalized = min(score / 0.6, 1.0)
+    return round(normalized * 100)

@@ -13,7 +13,8 @@ app = FastAPI(
 
 origins = [
     "http://localhost:5173",
-    "https://placement-copilot.vercel.app",  # update with your actual Vercel URL
+    "https://elevatecv-api-is2g.onrender.com",
+    "https://*.vercel.app",
 ]
 
 app.add_middleware(

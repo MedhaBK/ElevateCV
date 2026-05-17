@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.routers import resume, jd_match, interview  
+import os
 
 app = FastAPI(
     title=settings.app_name,
@@ -36,3 +37,8 @@ def health_check():
 app.include_router(resume.router)
 app.include_router(jd_match.router) 
 app.include_router(interview.router) 
+
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("app.main:app", host="0.0.0.0", port=port)

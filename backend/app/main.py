@@ -14,7 +14,7 @@ app = FastAPI(
 origins = [
     "http://localhost:5173",
     "https://elevatecv-api-is2g.onrender.com",
-    "https://*.vercel.app",
+    "https://elevate-cv-green.vercel.app/",
 ]
 
 app.add_middleware(

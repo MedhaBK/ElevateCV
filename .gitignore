@@ -1,0 +1,18 @@
+# Backend
+backend/.env
+backend/__pycache__/
+backend/**/*.pycache__/
+backend/**/*.pyc
+
+# Virtual Environment
+.venv/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.production
+
+# System
+.DS_Store
+*.log

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
-from app.routers import resume, jd_match, interview  
+from app.routers import resume, jd_match, interview
 import os
 
 app = FastAPI(
@@ -11,20 +11,13 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
-origins = [
-    "http://localhost:5173",
-    "https://elevatecv-api-is2g.onrender.com",
-    "https://elevate-cv-green.vercel.app/",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.get("/health")
 def health_check():
@@ -34,10 +27,9 @@ def health_check():
         "env": settings.app_env,
     }
 
-
 app.include_router(resume.router)
-app.include_router(jd_match.router) 
-app.include_router(interview.router) 
+app.include_router(jd_match.router)
+app.include_router(interview.router)
 
 if __name__ == "__main__":
     import uvicorn

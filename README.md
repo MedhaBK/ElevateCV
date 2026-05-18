@@ -18,3 +18,7 @@ LLM inference and semantic embeddings.
 
 Tech: FastAPI · React · Tailwind · Groq API · LLaMA 3.1 · sentence-transformers
       pdfplumber · Pydantic v2 · Render · Vercel
+
+    
+Live Demo: https://elevate-cv-green.vercel.app
+API Docs:  https://elevatecv-api-is2g.onrender.com/docs

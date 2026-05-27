@@ -1,4 +1,7 @@
 <h1>ElevateCV — Turn your Resume into Opportunities</h1><br>
+ElevateCV is a full-stack AI-powered resume analysis platform that provides ATS-based feedback, skill-gap analysis, and personalized improvement suggestions using LLMs, FastAPI, React, and Groq API.
+
+
 Built a full-stack GenAI application using FastAPI and React that analyzes
 resumes, matches job descriptions, and generates interview questions using
 LLM inference and semantic embeddings.

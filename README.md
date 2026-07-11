@@ -23,5 +23,6 @@ Tech: FastAPI · React · Tailwind · Groq API · LLaMA 3.1 · sentence-transfor
       pdfplumber · Pydantic v2 · Render · Vercel
 
     
-Live Demo: https://elevate-cv-green.vercel.app
+Live Demo: https://elevate-cv-green.vercel.app   
+<br>
 API Docs:  https://elevatecv-api-is2g.onrender.com/docs

@@ -9,8 +9,8 @@ LLM inference and semantic embeddings.
 - Designed a provider-agnostic LLM service layer (Groq/LLaMA 3.1) with
   structured JSON output and defensive parsing for production reliability
 
-- Implemented semantic JD matching using sentence-transformers embeddings
-  and cosine similarity — no vector DB required, runs fully local
+- Implemented semantic JD matching using TF-IDF and cosine similarity
+  — no vector DB required, runs fully local
 
 - Engineered modular prompt templates (ATS analysis, gap detection,
   interview generation) with Pydantic v2 schema validation on all
